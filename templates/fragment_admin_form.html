@@ -1,0 +1,102 @@
+{{define "fragment_admin_form"}}
+{{$mode := .Mode}}
+{{$req := .Req}}
+<div class="bg-white rounded-2xl border border-emerald-200 shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-5 animate-fade">
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="font-bold text-stone-900">
+      {{if eq $mode "create"}}New website request{{else}}Edit <span class="font-mono">{{$req.TrackingID}}</span>{{end}}
+    </h3>
+    <button
+      hx-get="/admin/requests"
+      hx-target="#form-container"
+      hx-swap="innerHTML"
+      onclick="document.getElementById('form-container').innerHTML = ''"
+      class="text-stone-400 hover:text-stone-700"
+      title="Close"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+  {{if .Error}}
+    <div class="mb-3 px-3 py-2 rounded-md bg-rose-50 border border-rose-200 text-rose-700 text-sm">{{.Error}}</div>
+  {{end}}
+  <form
+    {{if eq $mode "create"}}
+      hx-post="/admin/requests"
+    {{else}}
+      hx-post="/admin/requests/{{$req.ID}}"
+    {{end}}
+    hx-target="#list-container"
+    hx-swap="outerHTML"
+    class="space-y-3"
+  >
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div>
+        <label class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Requester name *</label>
+        <input type="text" name="requesterName" value="{{$req.RequesterName}}" required class="mt-1 w-full h-9 px-3 rounded-md border border-stone-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none text-sm">
+      </div>
+      <div>
+        <label class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Email *</label>
+        <input type="email" name="requesterEmail" value="{{$req.RequesterEmail}}" required class="mt-1 w-full h-9 px-3 rounded-md border border-stone-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none text-sm">
+      </div>
+    </div>
+    <div>
+      <label class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Site type</label>
+      <select name="siteType" class="mt-1 w-full h-9 px-3 rounded-md border border-stone-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none text-sm">
+        {{range $t := siteTypesList}}
+          <option value="{{$t.Value}}" {{if eq $t.Value $req.SiteType}}selected{{end}}>{{$t.Emoji}} {{$t.Label}}</option>
+        {{end}}
+      </select>
+    </div>
+    <div>
+      <label class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Site description *</label>
+      <textarea name="siteDescription" rows="3" required class="mt-1 w-full px-3 py-2 rounded-md border border-stone-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none text-sm">{{$req.SiteDescription}}</textarea>
+    </div>
+    <div>
+      <label class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Inspiration URL (optional)</label>
+      <input type="url" name="inspirationUrl" value="{{$req.InspirationURL}}" placeholder="https://…" class="mt-1 w-full h-9 px-3 rounded-md border border-stone-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none text-sm">
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div>
+        <label class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Status</label>
+        <select name="status" class="mt-1 w-full h-9 px-3 rounded-md border border-stone-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none text-sm">
+          {{range $s := statusFlowList}}
+            <option value="{{$s.Key}}" {{if eq $s.Key $req.Status}}selected{{end}}>{{$s.Label}}</option>
+          {{end}}
+        </select>
+      </div>
+      <div>
+        <label class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Estimated delivery</label>
+        <input type="date" name="estimatedDelivery" value="{{$req.EstimatedDelivery}}" class="mt-1 w-full h-9 px-3 rounded-md border border-stone-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none text-sm">
+      </div>
+    </div>
+    <div>
+      <label class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Progress: <span id="progress-display" class="font-mono font-bold text-emerald-700">{{$req.Progress}}</span>%</label>
+      <input type="range" name="progress" min="0" max="100" value="{{$req.Progress}}" oninput="document.getElementById('progress-display').textContent = this.value" class="w-full accent-emerald-600 mt-2 h-2">
+      <div class="flex justify-between text-xs text-stone-400 mt-1">
+        <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+      </div>
+    </div>
+    {{if eq $mode "edit"}}
+      <div>
+        <label class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Delivered URL</label>
+        <input type="url" name="deliveredUrl" value="{{$req.DeliveredURL}}" placeholder="https://…" class="mt-1 w-full h-9 px-3 rounded-md border border-stone-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none text-sm">
+      </div>
+    {{end}}
+    <div>
+      <label class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Admin notes</label>
+      <textarea name="adminNotes" rows="2" placeholder="Internal note for this request…" class="mt-1 w-full px-3 py-2 rounded-md border border-stone-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none text-sm">{{$req.AdminNotes}}</textarea>
+    </div>
+    <div class="flex justify-end gap-2 pt-1">
+      <button type="button" onclick="document.getElementById('form-container').innerHTML = ''" class="px-3 h-9 rounded-md border border-stone-300 text-stone-700 hover:bg-stone-50 text-sm font-medium inline-flex items-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        Cancel
+      </button>
+      <button type="submit" class="px-3 h-9 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium inline-flex items-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        {{if eq $mode "create"}}Create{{else}}Save changes{{end}}
+      </button>
+    </div>
+  </form>
+</div>
+{{end}}

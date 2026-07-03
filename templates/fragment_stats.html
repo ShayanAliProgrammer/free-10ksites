@@ -1,0 +1,117 @@
+{{define "fragment_stats"}}
+{{$s := .Stats}}
+<section class="py-10 sm:py-14">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-8">
+      <h2 class="text-xs font-semibold tracking-widest text-stone-500 uppercase">The 10K Sites Project</h2>
+      <p class="mt-2 text-2xl sm:text-3xl font-bold text-stone-900">Building in public, one site at a time.</p>
+    </div>
+    <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+      <div class="mb-6">
+        <div class="flex items-baseline justify-between mb-2">
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl sm:text-4xl font-bold text-stone-900 font-mono tabular-nums">{{$s.Total}}</span>
+            <span class="text-stone-400 font-medium">/ {{$s.Goal}}</span>
+          </div>
+          <span class="text-sm font-semibold text-emerald-700">{{printf "%.1f" (pct $s.Total $s.Goal)}}% claimed</span>
+        </div>
+        <div class="h-3 bg-stone-100 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-emerald-500 via-emerald-500 to-amber-400 rounded-full transition-all duration-1000" style="width: {{printf "%.2f" (pct $s.Total $s.Goal)}}%"></div>
+        </div>
+        <p class="mt-2 text-xs text-stone-500">
+          <span class="font-semibold text-stone-700">{{$s.Remaining}}</span> slots still open · first come, first served
+        </p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="rounded-2xl bg-stone-50 p-4 ring-1 ring-stone-200">
+          <div class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white text-stone-700 mb-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+          </div>
+          <div class="text-2xl font-bold text-stone-700 font-mono tabular-nums">{{$s.Total}}</div>
+          <div class="text-xs text-stone-600 mt-0.5">Total requests</div>
+        </div>
+        <div class="rounded-2xl bg-emerald-50 p-4 ring-1 ring-emerald-200">
+          <div class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white text-emerald-700 mb-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="text-2xl font-bold text-emerald-700 font-mono tabular-nums">{{$s.Delivered}}</div>
+          <div class="text-xs text-stone-600 mt-0.5">Delivered</div>
+        </div>
+        <div class="rounded-2xl bg-amber-50 p-4 ring-1 ring-amber-200">
+          <div class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white text-amber-700 mb-2">
+            <svg class="w-4 h-4 spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </div>
+          <div class="text-2xl font-bold text-amber-700 font-mono tabular-nums">{{$s.InProgress}}</div>
+          <div class="text-xs text-stone-600 mt-0.5">In progress</div>
+        </div>
+        <div class="rounded-2xl bg-teal-50 p-4 ring-1 ring-teal-200">
+          <div class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white text-teal-700 mb-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="text-2xl font-bold text-teal-700 font-mono tabular-nums">{{$s.Received}}</div>
+          <div class="text-xs text-stone-600 mt-0.5">In queue</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{end}}
+
+{{define "fragment_stats_inner"}}
+{{$s := .}}
+<section class="py-10 sm:py-14">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-8">
+      <h2 class="text-xs font-semibold tracking-widest text-stone-500 uppercase">The 10K Sites Project</h2>
+      <p class="mt-2 text-2xl sm:text-3xl font-bold text-stone-900">Building in public, one site at a time.</p>
+    </div>
+    <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+      <div class="mb-6">
+        <div class="flex items-baseline justify-between mb-2">
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl sm:text-4xl font-bold text-stone-900 font-mono tabular-nums">{{$s.Total}}</span>
+            <span class="text-stone-400 font-medium">/ {{$s.Goal}}</span>
+          </div>
+          <span class="text-sm font-semibold text-emerald-700">{{printf "%.1f" (pct $s.Total $s.Goal)}}% claimed</span>
+        </div>
+        <div class="h-3 bg-stone-100 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-emerald-500 via-emerald-500 to-amber-400 rounded-full transition-all duration-1000" style="width: {{printf "%.2f" (pct $s.Total $s.Goal)}}%"></div>
+        </div>
+        <p class="mt-2 text-xs text-stone-500">
+          <span class="font-semibold text-stone-700">{{$s.Remaining}}</span> slots still open · first come, first served
+        </p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="rounded-2xl bg-stone-50 p-4 ring-1 ring-stone-200">
+          <div class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white text-stone-700 mb-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+          </div>
+          <div class="text-2xl font-bold text-stone-700 font-mono tabular-nums">{{$s.Total}}</div>
+          <div class="text-xs text-stone-600 mt-0.5">Total requests</div>
+        </div>
+        <div class="rounded-2xl bg-emerald-50 p-4 ring-1 ring-emerald-200">
+          <div class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white text-emerald-700 mb-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="text-2xl font-bold text-emerald-700 font-mono tabular-nums">{{$s.Delivered}}</div>
+          <div class="text-xs text-stone-600 mt-0.5">Delivered</div>
+        </div>
+        <div class="rounded-2xl bg-amber-50 p-4 ring-1 ring-amber-200">
+          <div class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white text-amber-700 mb-2">
+            <svg class="w-4 h-4 spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </div>
+          <div class="text-2xl font-bold text-amber-700 font-mono tabular-nums">{{$s.InProgress}}</div>
+          <div class="text-xs text-stone-600 mt-0.5">In progress</div>
+        </div>
+        <div class="rounded-2xl bg-teal-50 p-4 ring-1 ring-teal-200">
+          <div class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white text-teal-700 mb-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="text-2xl font-bold text-teal-700 font-mono tabular-nums">{{$s.Received}}</div>
+          <div class="text-xs text-stone-600 mt-0.5">In queue</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{end}}

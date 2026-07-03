@@ -1,0 +1,40 @@
+{{define "admin_login.html"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · 10K Sites</title>
+  <link rel="stylesheet" href="/static/tailwind.css">
+  <script src="/static/js/security.js"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-stone-50 p-4">
+  <div class="w-full max-w-sm">
+    <a href="/" class="flex items-center justify-center gap-2 mb-6">
+      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center font-bold text-white text-sm">10K</div>
+      <span class="font-bold text-stone-900">10K Sites</span>
+    </a>
+    <div class="bg-white rounded-2xl border border-stone-200 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+      <div class="flex items-center gap-2 mb-1">
+        <svg class="w-4 h-4 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        <h1 class="text-lg font-bold text-stone-900">Admin access</h1>
+      </div>
+      <p class="text-sm text-stone-600 mb-4">Enter your admin password to manage website requests.</p>
+      {{if .Error}}
+        <div class="mb-3 px-3 py-2 rounded-md bg-rose-50 border border-rose-200 text-rose-700 text-sm">{{.Error}}</div>
+      {{end}}
+      <form method="POST" action="/admin/login" class="space-y-3">
+        <div>
+          <label class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Password</label>
+          <input type="password" name="password" autofocus required class="mt-1 w-full h-10 px-3 rounded-lg border border-stone-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none">
+        </div>
+        <button type="submit" class="w-full h-10 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition-colors">Log in</button>
+        <p class="text-xs text-stone-500 text-center">Demo password: <code class="font-mono bg-stone-100 px-1.5 py-0.5 rounded">build10k</code></p>
+      </form>
+    </div>
+    <p class="text-center mt-4">
+      <a href="/" class="text-xs text-stone-500 hover:text-stone-800">← Back to tracker</a>
+    </p>
+  </div>
+</body>
+</html>
+{{end}}

@@ -1,0 +1,216 @@
+{{define "index.html"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10K Sites — Track Your Free Website Build</title>
+  <meta name="description" content="Track the status of your free website build. Enter your tracking ID to see real-time progress from request received to delivery.">
+  <link rel="stylesheet" href="/static/tailwind.css">
+  <script src="/static/htmx.min.js"></script>
+  <script src="/static/js/security.js"></script>
+  <script src="/static/js/app.js" defer></script>
+</head>
+<body class="min-h-screen flex flex-col bg-stone-50 text-stone-900">
+
+  <!-- Top nav -->
+  <header class="sticky top-0 z-30 backdrop-blur-md bg-stone-50/80 border-b border-stone-200/60">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center font-bold text-white text-xs">10K</div>
+        <span class="font-bold text-stone-900 text-sm sm:text-base">10K Sites Tracker</span>
+      </a>
+      <nav class="hidden sm:flex items-center gap-1 text-sm">
+        <a href="#types" class="px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 hover:bg-stone-100 transition-colors">What we build</a>
+        <a href="#how" class="px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 hover:bg-stone-100 transition-colors">How it works</a>
+        <a href="#faq" class="px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 hover:bg-stone-100 transition-colors">FAQ</a>
+        <a href="#track" class="ml-2 px-3 py-1.5 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-medium transition-colors inline-flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L20 12l-5.714 2.143L12 21l-2.286-6.857L4 12l5.714-2.143L12 3z"/></svg>
+          Track
+        </a>
+      </nav>
+      <a href="#track" class="sm:hidden px-3 py-1.5 rounded-md bg-emerald-600 text-white font-medium text-sm">Track</a>
+    </div>
+  </header>
+
+  <main class="flex-1" id="top">
+    <!-- Hero -->
+    <section class="relative overflow-hidden pt-12 sm:pt-16 lg:pt-20 pb-8">
+      <div aria-hidden="true" class="absolute inset-0 -z-10">
+        <div class="absolute inset-0 bg-gradient-to-b from-emerald-50/60 via-stone-50/40 to-transparent"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-emerald-200/30 rounded-full blur-3xl"></div>
+        <div class="absolute top-10 right-1/4 w-80 h-80 bg-amber-200/25 rounded-full blur-3xl"></div>
+      </div>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-3xl mx-auto animate-fade-up">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold tracking-wide mb-5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12v10H4V12M2 7h20v5H2V7zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            10,000 free websites · first come, first served
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-stone-900 leading-[1.05]">
+            Track your
+            <span class="relative inline-block">
+              <span class="relative z-10 bg-gradient-to-br from-emerald-600 to-teal-600 bg-clip-text text-transparent">free website</span>
+              <svg aria-hidden="true" class="absolute -bottom-1 left-0 w-full" viewBox="0 0 300 12" preserveAspectRatio="none">
+                <path d="M2 9 C 80 3, 220 3, 298 9" stroke="#f59e0b" stroke-width="3" fill="none" stroke-linecap="round"/>
+              </svg>
+            </span>
+            build in real time.
+          </h1>
+          <p class="mt-6 text-lg sm:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto">
+            Enter the tracking ID we sent you to see live status, build progress, and delivery updates — from request received to site shipped.
+          </p>
+          <div class="mt-6 flex items-center justify-center gap-5 text-xs text-stone-500 flex-wrap">
+            <span class="inline-flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"/></svg>
+              Delivered in 2–3 working days
+            </span>
+            <span class="inline-flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967 1.276L11.345 7.5h1.65a1 1 0 01.948 1.316l-2 6A1 1 0 019.39 14.5l1.654-5H9.5a1 1 0 01-.948-1.316l2-6A1 1 0 0112 2z"/></svg>
+              Any site type, no catch
+            </span>
+          </div>
+        </div>
+
+        <!-- Tracker -->
+        <div id="track" class="scroll-mt-20 mt-10">
+          {{if .InitialRequest}}
+            {{$dummy := .InitialRequest}}
+            {{template "fragment_result" dict "Request" $dummy}}
+          {{else}}
+            {{template "fragment_search" .}}
+          {{end}}
+        </div>
+
+        <div class="mt-8 text-center">
+          <a href="#types" class="inline-flex items-center gap-1.5 text-xs text-stone-500 hover:text-stone-800 transition-colors">
+            <svg class="w-3.5 h-3.5 animate-bounce-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            See what we're building
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats (wrapped for WebSocket-targeted refresh) -->
+    <div id="stats-section">
+      {{if .Stats}}
+        {{template "fragment_stats_inner" .Stats}}
+      {{end}}
+    </div>
+
+    <!-- Site types -->
+    <section id="types" class="scroll-mt-20 py-12 sm:py-16">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10">
+          <h2 class="text-xs font-semibold tracking-widest text-stone-500 uppercase">What we build</h2>
+          <p class="mt-2 text-2xl sm:text-3xl font-bold text-stone-900">Pick a type. We'll handle the rest.</p>
+          <p class="mt-3 text-stone-600 max-w-xl mx-auto">Every site is hand-built, responsive, and shipped in 2–3 working days. No templates, no hidden fees.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {{range $i, $t := siteTypesList}}
+            <div class="group relative bg-white rounded-2xl p-5 border border-stone-200 hover:border-emerald-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+              <div class="flex items-start gap-3">
+                <div class="text-3xl flex-shrink-0 w-12 h-12 rounded-xl bg-stone-50 flex items-center justify-center group-hover:bg-emerald-50 transition-colors">{{$t.Emoji}}</div>
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-semibold text-stone-900">{{$t.Label}}</h3>
+                  <p class="text-sm text-stone-600 mt-1 leading-relaxed">{{$t.Description}}</p>
+                </div>
+              </div>
+            </div>
+          {{end}}
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="scroll-mt-20 py-12 sm:py-16 bg-gradient-to-b from-stone-50/60 to-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10">
+          <h2 class="text-xs font-semibold tracking-widest text-stone-500 uppercase">How it works</h2>
+          <p class="mt-2 text-2xl sm:text-3xl font-bold text-stone-900">From reply to live site in 4 steps.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {{range $i, $s := howItWorksSteps}}
+            <div class="relative bg-white rounded-2xl p-5 border border-stone-200">
+              <div class="inline-flex w-10 h-10 rounded-xl items-center justify-center {{$s.Color}} mb-3" aria-hidden="true">
+                <span class="text-xl">{{$s.Icon}}</span>
+              </div>
+              <h3 class="font-semibold text-stone-900 text-sm">{{$s.Title}}</h3>
+              <p class="text-sm text-stone-600 mt-1.5 leading-relaxed">{{$s.Body}}</p>
+              {{if lt $i 3}}<div class="hidden lg:block absolute top-1/2 -right-2 text-stone-300">→</div>{{end}}
+            </div>
+          {{end}}
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="scroll-mt-20 py-12 sm:py-16">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8">
+          <h2 class="text-xs font-semibold tracking-widest text-stone-500 uppercase">Frequently asked</h2>
+          <p class="mt-2 text-2xl sm:text-3xl font-bold text-stone-900">The fine print, in plain English.</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-stone-200 divide-y divide-stone-100">
+          {{range $i, $f := faqs}}
+            <details class="group p-4 sm:p-5">
+              <summary class="cursor-pointer text-stone-900 font-semibold text-sm sm:text-base list-none flex items-center justify-between gap-3">
+                <span>{{$f.Q}}</span>
+                <svg class="w-4 h-4 text-stone-400 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <p class="text-sm text-stone-600 leading-relaxed mt-3">{{$f.A}}</p>
+            </details>
+          {{end}}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-auto bg-stone-900 text-stone-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center font-bold text-white text-sm">10K</div>
+            <span class="font-bold text-white">10K Sites Project</span>
+          </div>
+          <p class="text-sm text-stone-400 leading-relaxed">Building 10,000 websites for free. Speed, credibility, and thousands of launches — without money being a barrier.</p>
+        </div>
+        <div>
+          <h3 class="text-xs font-semibold tracking-widest text-stone-500 uppercase mb-3">Quick links</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#track" class="hover:text-emerald-400 transition-colors">Track your site</a></li>
+            <li><a href="#types" class="hover:text-emerald-400 transition-colors">What we build</a></li>
+            <li><a href="#how" class="hover:text-emerald-400 transition-colors">How it works</a></li>
+            <li><a href="#faq" class="hover:text-emerald-400 transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xs font-semibold tracking-widest text-stone-500 uppercase mb-3">Reach out</h3>
+          <div class="flex items-center gap-3 mb-3">
+            <a href="#" aria-label="Twitter" class="w-9 h-9 rounded-lg bg-stone-800 hover:bg-emerald-600 flex items-center justify-center transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>
+            </a>
+            <a href="#" aria-label="GitHub" class="w-9 h-9 rounded-lg bg-stone-800 hover:bg-emerald-600 flex items-center justify-center transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+            <a href="mailto:hello@10ksites.example" aria-label="Email" class="w-9 h-9 rounded-lg bg-stone-800 hover:bg-emerald-600 flex items-center justify-center transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </a>
+          </div>
+          <p class="text-xs text-stone-500">Reply on the original thread to claim your slot.</p>
+        </div>
+      </div>
+      <div class="mt-8 pt-6 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500">
+        <p class="flex items-center gap-1.5">
+          Built with <span class="text-rose-500">♥</span> for the 10K Sites project · Go + HTMX + Tailwind
+        </p>
+        <a href="/admin" class="text-stone-500 hover:text-stone-300 transition-colors text-xs">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
+{{end}}
